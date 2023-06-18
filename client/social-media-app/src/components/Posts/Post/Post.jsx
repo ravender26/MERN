@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { Card, CardActions, CardContent, CardMedia, Button, Typography } from '@mui/material';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -8,7 +9,7 @@ import { useDispatch } from 'react-redux';
 import { likePost, deletePost } from '../../../redux/actions/posts';
 import useStyles from './styles';
 
-const Post = ({ post, setCurrentId }) => {
+const Post = ({ post = {}, setCurrentId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
 

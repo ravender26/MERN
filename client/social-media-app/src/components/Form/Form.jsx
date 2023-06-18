@@ -23,17 +23,13 @@ const Form = ({ currentId, setCurrentId }) => { // eslint-disable-line
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(createPost(postData))
-    clear();
 
-    return
     if (currentId === 0) {
       dispatch(createPost(postData));
-      clear();
     } else {
       dispatch(updatePost(currentId, postData));
-      clear();
     }
+    clear();
   };
 
   return (

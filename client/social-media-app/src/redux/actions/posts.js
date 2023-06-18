@@ -29,12 +29,12 @@ export const createPost = (post) => async (dispatch) => {
   }
 };
 
-export const updatePost = () => async (dispatch) => {
+export const updatePost = (id, post) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts();
+    const { data } = await api.updatePost(id, post);
     const action = {
-      type: "FEATCH_ALL",
-      payload: data || [],
+      type: "UPDATE",
+      payload: data,
     };
 
     dispatch(action);
@@ -57,16 +57,16 @@ export const likePost = () => async (dispatch) => {
   }
 };
 
-export const deletePost = () => async (dispatch) => {
+export const deletePost = (id) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts();
+    await api.deletePost(id);
     const action = {
-      type: "FEATCH_ALL",
-      payload: data || [],
+      type: "DELETE",
+      payload: id,
     };
 
     dispatch(action);
   } catch (error) {
-    console.log(error.message);
+    console.log(error);
   }
 };
