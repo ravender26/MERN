@@ -43,12 +43,12 @@ export const updatePost = (id, post) => async (dispatch) => {
   }
 };
 
-export const likePost = () => async (dispatch) => {
+export const likePost = (id) => async (dispatch) => {
   try {
-    const { data } = await api.fetchPosts();
+    const { data } = await api.likePost(id);
     const action = {
-      type: "FEATCH_ALL",
-      payload: data || [],
+      type: "UPDATE",
+      payload: data,
     };
 
     dispatch(action);
