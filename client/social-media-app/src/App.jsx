@@ -15,9 +15,7 @@ function App() {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const [currentId, setCurrentId] = useState(null)
-
-  console.log(currentId, "currentIdcurrentIdcurrentId");
+  const [currentId, setCurrentId] = useState(null);
 
   useEffect(() => {
     dispatch(getPosts())
