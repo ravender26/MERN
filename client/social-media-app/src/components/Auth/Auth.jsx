@@ -1,16 +1,15 @@
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Avatar, Button, Paper, Grid, Typography, Container } from '@material-ui/core';
-// import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import jwt_decode from "jwt-decode";
 import LockPersonIcon from '@mui/icons-material/LockPerson';
 
-import Icon from './icon';
 // import { signin, signup } from '../../actions/auth';
-// import { AUTH } from '../../constants/actionTypes';
 import useStyles from './styles';
 import Input from './Input';
+import { AUTH } from '../../redux/actions/actionTypes';
 
 const initialState = { firstName: '', lastName: '', email: '', password: '', confirmPassword: '' };
 
@@ -18,7 +17,7 @@ const SignUp = () => {
   const [form, setForm] = useState(initialState);
   const [isSignup, setIsSignup] = useState(false);
   const dispatch = useDispatch();
-  // const history = useHistory();
+  const navigate = useNavigate();
   const classes = useStyles();
 
   const [showPassword, setShowPassword] = useState(false);
@@ -40,30 +39,25 @@ const SignUp = () => {
     }
   };
 
-  const googleSuccess = async (res) => {
-    const result = res?.profileObj;
-    const token = res?.tokenId;
-
-    try {
-      // dispatch({ type: AUTH, data: { result, token } });
-
-      // history.push('/');
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const googleError = () => alert('Google Sign In was unsuccessful. Try again later');
-
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
   const handelGoogleLogin = (credentialResponse) => {
-    const { name, picture, sub } = jwt_decode(credentialResponse?.credential);
-    const user = {
-      _id: sub,
-      userName: name,
-      image: picture,
-      _type: "user"
+
+    const data = jwt_decode(credentialResponse?.credential);
+
+
+    try {
+      dispatch({ type: AUTH, data: { data } })
+      navigate("/")
+      // const { name, picture, sub } = data;
+      // const user = {
+      //   _id: sub,
+      //   userName: name,
+      //   image: picture,
+      //   _type: "user"
+      // }
+    } catch (error) {
+      console.log(error, "errrrrrrrrrrrrrrrrrrrrrrror");
     }
 
   }
