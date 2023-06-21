@@ -6,7 +6,7 @@ import { GoogleLogin, googleLogout } from '@react-oauth/google';
 import jwt_decode from "jwt-decode";
 import LockPersonIcon from '@mui/icons-material/LockPerson';
 
-// import { signin, signup } from '../../actions/auth';
+import { signin, signup } from "../../redux/actions/auth";
 import useStyles from './styles';
 import Input from './Input';
 import { AUTH } from '../../redux/actions/actionTypes';
@@ -33,9 +33,9 @@ const SignUp = () => {
     e.preventDefault();
 
     if (isSignup) {
-      // dispatch(signup(form, history));
+      dispatch(signup(form, navigate));
     } else {
-      // dispatch(signin(form, history));
+      dispatch(signin(form, navigate));
     }
   };
 
@@ -49,13 +49,6 @@ const SignUp = () => {
     try {
       dispatch({ type: AUTH, data: { data } })
       navigate("/")
-      // const { name, picture, sub } = data;
-      // const user = {
-      //   _id: sub,
-      //   userName: name,
-      //   image: picture,
-      //   _type: "user"
-      // }
     } catch (error) {
       console.log(error, "errrrrrrrrrrrrrrrrrrrrrrror");
     }
